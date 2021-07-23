@@ -1,38 +1,94 @@
+@import '~antd/dist/antd.css';
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  margin: auto;
+}
+
+.App-title {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 2em;
+  color: snow;
+  margin: auto;
 }
 
-.App-link {
-  color: #61dafb;
+.App-buttons {
+  display: flex;
+  flex-direction: row;
+  color: snow;
+  margin: auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: snow;
+  margin-right: 2vw;
+  margin-left: 2vw;
+}
+
+.App-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: snow;
+  margin: auto;
+}
+
+.A {
+  background-color: red;
+  border-color: red;
+}
+
+.A:hover {
+  background-color: orangered;
+  border-color: orangered;
+}
+
+.A:focus {
+  background-color: orangered;
+  border-color: orangered;
+}
+
+.B {
+  background-color: green;
+  border-color: green;
+}
+
+.B:hover {
+  background-color: limegreen;
+  border-color: limegreen;
+}
+
+.B:focus {
+  background-color: limegreen;
+  border-color: limegreen;
+}
+
+.None {
+  background-color: grey;
+  border-color: grey;
+}
+
+.None:hover {
+  background-color: silver;
+  border-color: silver;
+}
+
+.None:focus {
+  background-color: silver;
+  border-color: silver;
 }
