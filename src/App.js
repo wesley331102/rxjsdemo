@@ -1,28 +1,15 @@
 import './App.css';
 import React, { useState } from 'react';
 import { Subject, merge } from 'rxjs';
-import { Button, Divider, Card } from 'antd';
+import { Button, Divider, Card, Collapse, message } from 'antd';
+import { HeartTwoTone } from '@ant-design/icons';
 
+const { Panel } = Collapse;
 
 const gridStyle = {
   width: '25%',
   textAlign: 'center',
 };
-
-const tabList = [
-  {
-    key: 'A',
-    tab: 'A',
-  },
-  {
-    key: 'B',
-    tab: 'B',
-  },
-  {
-    key: '所有',
-    tab: '所有',
-  },
-];
 
 function App() {
 
@@ -34,8 +21,6 @@ function App() {
   const [AList, setAList] = useState([]);
   const [BList, setBList] = useState([]);
   const [allList, setAllList] = useState([]);
-
-  const [tabkey, setTabkey] = useState('A');
 
 
   // For A, B and None's observable
@@ -73,15 +58,15 @@ function App() {
         setDiffer(differ - 1);
       }
     },
-    error: err => console.error('observerB got an error: ' + err),
-    complete: () => console.log('observerB got a complete notification'),
+    error: err => console.error('observerDiffer got an error: ' + err),
+    complete: () => console.log('observerDiffer got a complete notification'),
   };
 
   // sum observer
   const observerSum = {
     next: () => setAll(all + 1),
-    error: err => console.error('observerB got an error: ' + err),
-    complete: () => console.log('observerB got a complete notification'),
+    error: err => console.error('observerSum got an error: ' + err),
+    complete: () => console.log('observerSum got a complete notification'),
   };
 
 
@@ -92,30 +77,30 @@ function App() {
       const newBList = BList;
       const newAllList = allList;
       if (data === 'A') {
-        newAList.push('A');
+        newAList.push(<HeartTwoTone twoToneColor="red" />);
         setAList(newAList);
-        newBList.push('-');
+        newBList.push(<HeartTwoTone twoToneColor="grey" />);
         setBList(newBList);
-        newAllList.push('A');
+        newAllList.push(<HeartTwoTone twoToneColor="red" />);
         setAllList(newAllList);
       } else if (data === 'B') {
-        newAList.push('-');
+        newAList.push(<HeartTwoTone twoToneColor="grey" />);
         setAList(newAList);
-        newBList.push('B');
+        newBList.push(<HeartTwoTone twoToneColor="green" />);
         setBList(newBList);
-        newAllList.push('B');
+        newAllList.push(<HeartTwoTone twoToneColor="green" />);
         setAllList(newAllList);
       } else {
-        newAList.push('-');
+        newAList.push(<HeartTwoTone twoToneColor="grey" />);
         setAList(newAList);
-        newBList.push('-');
+        newBList.push(<HeartTwoTone twoToneColor="grey" />);
         setBList(newBList);
-        newAllList.push('-');
+        newAllList.push(<HeartTwoTone twoToneColor="grey" />);
         setAllList(newAllList);
       }
     },
-    error: err => console.error('observerB got an error: ' + err),
-    complete: () => console.log('observerB got a complete notification'),
+    error: err => console.error('observerStream got an error: ' + err),
+    complete: () => console.log('observerStream got a complete notification'),
   };
 
 
@@ -132,17 +117,16 @@ function App() {
   // stream observer subscribe the merge of all
   buttonAll.subscribe(observerStream);
 
-
-  const getContentByTabkey = (key) => {
-    if (key === 'A') {
-      return AList;
-    } else if (key === 'B') {
-      return BList;
+  const showWinner = () => {
+    if (A > B) {
+      message.success("A wins!", 5);
+    } else if (B > A) {
+      message.success("B wins!", 5);
     } else {
-      return allList;
+      message.info("Tie!", 5);
     }
-  }
-  
+  };
+
   return (
     <div className='App'>
       <div className='App-title'>
@@ -177,19 +161,36 @@ function App() {
           <Card.Grid style={gridStyle}>{all}</Card.Grid>
           <Card.Grid style={gridStyle}>{differ}</Card.Grid>
         </Card>
+        <Divider />
+        <div className='App-buttons'>
+          <div className='App-button'>
+            <Button type="primary" onClick={() => {
+              buttonA.complete();
+              buttonB.complete();
+              buttonNone.complete();
+              showWinner();
+            }} className='Finish' size='large'>Finish!</Button>
+          </div>
+        </div>
       </div>
       <div className='App-main'>
-        <Card
-          style={{ width: '100%' }}
-          title="資料流總表"
-          tabList={tabList}
-          activeTabKey={tabkey}
-          onTabChange={key => {
-            setTabkey(key);
-          }}
-        >
-          {getContentByTabkey(tabkey)}
-        </Card>
+          <Collapse defaultActiveKey={['1']}>
+            <Panel header="A" key="1">
+              <p>--------------------------------------------------</p>
+              {AList.length === 0 ? <p>----------------------None---------------------</p> : <p>{AList}</p>}
+              <p>--------------------------------------------------</p>
+            </Panel>
+            <Panel header="B" key="2">
+              <p>--------------------------------------------------</p>
+              {BList.length === 0 ? <p>----------------------None---------------------</p> : <p>{BList}</p>}
+              <p>--------------------------------------------------</p>
+            </Panel>
+            <Panel header="所有" key="3">
+              <p>--------------------------------------------------</p>
+              {allList.length === 0 ? <p>----------------------None---------------------</p> : <p>{allList}</p>}
+              <p>--------------------------------------------------</p>
+            </Panel>
+          </Collapse>
       </div>
     </div>
   );

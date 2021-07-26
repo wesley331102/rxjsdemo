@@ -92,3 +92,20 @@
   background-color: silver;
   border-color: silver;
 }
+
+.Finish {
+  background-color: #282c34;
+  border-color: #282c34;
+}
+
+.Finish:hover {
+  color: #282c34;
+  background-color: snow;
+  border-color: snow;
+}
+
+.Finish:focus {
+  color: #282c34;
+  background-color: snow;
+  border-color: snow;
+}
