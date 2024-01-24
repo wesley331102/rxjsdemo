@@ -1,7 +1,6 @@
-# Getting Started with Create React App
+# Microsoft Technology Sharing
 
-Microsoft Technology Sharing
-Rxjs-part1 https://docs.google.com/presentation/d/1K92phXqyF4TXrHTaSs0oG6gW4qb4iXhmLHvUf8i8F8E/edit?usp=sharing
+Rxjs-part1 https://docs.google.com/presentation/d/1K92phXqyF4TXrHTaSs0oG6gW4qb4iXhmLHvUf8i8F8E/edit?usp=sharing \
 Rxjs-part2 https://docs.google.com/presentation/d/1dPF9smexO_oR4LHL2kTRQsRcGzdoBegtusf0MQLHM2U/edit?usp=sharing
 
 # Getting Started with Create React App
